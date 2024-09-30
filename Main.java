@@ -1,98 +1,74 @@
-// Se crea clase abstracta llamada Calculo
-abstract class Calculo {
-    protected String producto;
-    protected double precio;
-    protected int cantidad;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Calculo(String producto, double precio, int cantidad) {
-        this.producto = producto;
-        this.precio = precio;
-        this.cantidad = cantidad;
+class Computadora{
+    private String procesador;
+    private String tarjetaGrafica;
+    private int ram;
+
+    public Computadora(String procesador, String tarjetaGrafica, int ram) {
+        this.procesador = procesador;
+        this.tarjetaGrafica = tarjetaGrafica;
+        this.ram = ram;
     }
 
-    // Se crea un método abstracto para calcular el impuesto
-    abstract double calcularImpuesto();
-}
-
-// Se crea clase que calcula el IVA al 19%
-class CalculoImpuestoIva extends Calculo {
-
-    public CalculoImpuestoIva(String producto, double precio, int cantidad) {
-        super(producto, precio, cantidad);
+    public String getProcesador() {
+        return procesador;
     }
 
-    @Override
-    double calcularImpuesto() {
-        return precio * cantidad * 0.19;  // 19% de IVA
-    }
-}
-
-//  Se crea clase que calcula el ICA al 10%
-class CalculoImpuestoICA extends Calculo {
-
-    public CalculoImpuestoICA(String producto, double precio, int cantidad) {
-        super(producto, precio, cantidad);
+    public String getTarjetaGrafica() {
+        return tarjetaGrafica;
     }
 
-    @Override
-    double calcularImpuesto() {
-        return precio * cantidad * 0.10;  // 10% de ICA
+    public int getRam() {
+        return ram;
+    }
+
+    public void setProcesador(String procesador) {
+        this.procesador = procesador;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public void setTarjetaGrafica(String tarjetaGrafica) {
+        this.tarjetaGrafica = tarjetaGrafica;
     }
 }
 
-// Clase que calcula el IVA saludable al 5%
-class CalculoImpuestoSaludable extends Calculo {
-
-    public CalculoImpuestoSaludable(String producto, double precio, int cantidad) {
-        super(producto, precio, cantidad);
-    }
-
-    @Override
-    double calcularImpuesto() {
-        return precio * cantidad * 0.05;  // 5% de IVA saludable
+class FabricaComputadoras {
+    public Computadora crearComputadora(String procesador, String tarjetaGrafica, int ram) {
+        return new Computadora(procesador, tarjetaGrafica, ram);
     }
 }
 
-// Se crea clase Factura que realiza el cálculo del impuesto
-class Factura {
-    private Calculo calculo;
 
-    public Factura(Calculo calculo) {
-        this.calculo = calculo;
+
+class Orden {
+    private List<Computadora> computadoras = new ArrayList<>();
+    private FabricaComputadoras fabricaComputadoras = new FabricaComputadoras();
+
+    public void agregarComputadora(String procesador, String tarjetaGrafica, int ram) {
+        Computadora computadora = fabricaComputadoras.crearComputadora(procesador, tarjetaGrafica, ram);
+        computadoras.add(computadora);
     }
 
-    public double calcularTotalConImpuesto() {
-        return calculo.precio * calculo.cantidad + calculo.calcularImpuesto();
+    public int calcularTotalComputadoras() {
+        return computadoras.size();
     }
 
-    public void mostrarFactura() {
-        System.out.println("Producto: " + calculo.producto);
-        System.out.println("Cantidad: " + calculo.cantidad);
-        System.out.println("Precio unitario: $" + calculo.precio);
-        System.out.println("Impuesto aplicado: $" + calculo.calcularImpuesto());
-        System.out.println("Total a pagar: $" + calcularTotalConImpuesto());
+    public List<Computadora> getComputadoras() {
+        return computadoras;
     }
 }
 
-// Se crea clase Main para ejecutar el programa
 public class Main{
     public static void main(String[] args) {
-        // Calcular IVA del 19%
-        Factura facturaIva = new Factura(new CalculoImpuestoIva("Celular",500,4));
-        facturaIva.mostrarFactura();
+        Orden orden = new Orden();
+        orden.agregarComputadora("Core 7", "NVIDIA GTX 3080", 32);
+        orden.agregarComputadora(" Ryzen 5", "AMD Radeon RX 580", 16);
 
-        // Calcular ICA del 10%
-        Factura facturaIca = new Factura(new CalculoImpuestoICA("Laptop", 2000.0, 2));
-        facturaIca.mostrarFactura();
-
-        // Calcular IVA saludable del 5%
-        Factura facturaSaludable = new Factura(new CalculoImpuestoSaludable("Audifonos", 1.5, 10));
-        facturaSaludable.mostrarFactura();
+        System.out.println("Total de Computadoras: " + orden.calcularTotalComputadoras());
     }
 }
-
-
-
-
-    
-
