@@ -15,37 +15,37 @@ public class CalculadoraTest {
 
     @RepeatedTest(5)
     public void testSumar() {
-        double resultado = calculadora.sumar(1, 2);
-        Assertions.assertEquals(3, resultado, 0.0);
+        double resultado = calculadora.sumar(3, 2);
+        Assertions.assertEquals(5, resultado, 0.0);
         Assertions.assertNotEquals(calculadora, new Calculadora());
-        Assertions.assertTrue(resultado == 3);
+        Assertions.assertTrue(resultado == 5);
         Assertions.assertFalse(resultado == 4);
     }
 
     @RepeatedTest(5)
     public void testRestar() {
-        double resultado = calculadora.restar(1, 2);
-        Assertions.assertEquals(-1, resultado, 0.0);
+        double resultado = calculadora.restar(3, 2);
+        Assertions.assertEquals(1, resultado, 0.0);
         Assertions.assertNotEquals(calculadora, new Calculadora());
-        Assertions.assertTrue(resultado == -1);
+        Assertions.assertTrue(resultado == 1);
         Assertions.assertFalse(resultado == 0);
     }
 
     @RepeatedTest(5)
     public void testMultiplicar() {
-        double resultado = calculadora.mult(1, 2);
-        Assertions.assertEquals(2, resultado, 0.0);
+        double resultado = calculadora.mult(2, 2);
+        Assertions.assertEquals(4, resultado, 0.0);
         Assertions.assertNotEquals(calculadora, new Calculadora());
-        Assertions.assertTrue(resultado == 2);
+        Assertions.assertTrue(resultado == 4);
         Assertions.assertFalse(resultado == 3);
     }
 
     @RepeatedTest(5)
     public void testDividir() {
-        double resultado = calculadora.div(1, 2);
-        Assertions.assertEquals(0.5, resultado, 0.0);
+        double resultado = calculadora.div(4, 2);
+        Assertions.assertEquals(2, resultado, 0.0);
         Assertions.assertNotEquals(calculadora, new Calculadora());
-        Assertions.assertTrue(resultado == 0.5);
+        Assertions.assertTrue(resultado == 2);
         Assertions.assertFalse(resultado == 1);
     }
 }
